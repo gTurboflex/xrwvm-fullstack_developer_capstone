@@ -118,7 +118,7 @@ spec:
     spec:
       containers:
         - name: dealership
-          image: us.icr.io/REPLACE_WITH_LAB_NAMESPACE/dealership:latest
+          image: us.icr.io/REPLACE_WITH_LAB_NAMESPACE/dealershipapp:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
