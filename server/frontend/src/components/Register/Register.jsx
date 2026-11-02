@@ -4,6 +4,8 @@ import '../Login/Login.css';
 
 export default function Register() {
   const [userName, setUserName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -12,7 +14,7 @@ export default function Register() {
     const response = await fetch('/djangoapp/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userName, email, password }),
+      body: JSON.stringify({ userName, firstName, lastName, email, password }),
     });
     const result = await response.json();
     if (response.ok && result.status === 'Authenticated') {
@@ -25,9 +27,11 @@ export default function Register() {
   return <div><Header /><main className="login_panel"><h1>Register</h1>
     <form onSubmit={register}>
       <label>Username <input required value={userName} onChange={e => setUserName(e.target.value)} /></label>
-      <label>Email <input type="email" value={email} onChange={e => setEmail(e.target.value)} /></label>
+      <label>First Name <input required value={firstName} onChange={e => setFirstName(e.target.value)} /></label>
+      <label>Last Name <input required value={lastName} onChange={e => setLastName(e.target.value)} /></label>
+      <label>Email <input required type="email" value={email} onChange={e => setEmail(e.target.value)} /></label>
       <label>Password <input required type="password" minLength="8" value={password} onChange={e => setPassword(e.target.value)} /></label>
-      <button type="submit">Create account</button>
+      <button type="submit">Register</button>
       {message && <p role="alert">{message}</p>}
     </form>
     <a href="/login">Already registered? Sign in</a>

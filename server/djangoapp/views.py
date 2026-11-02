@@ -58,7 +58,13 @@ def registration(request):
             return JsonResponse({"error": "A username and password of at least 8 characters are required"}, status=400)
         if User.objects.filter(username=username).exists():
             return JsonResponse({"error": "Username already exists"}, status=409)
-        user = User.objects.create_user(username=username, email=data.get("email", ""), password=password)
+        user = User.objects.create_user(
+            username=username,
+            first_name=data.get("firstName", "").strip(),
+            last_name=data.get("lastName", "").strip(),
+            email=data.get("email", "").strip(),
+            password=password,
+        )
         login(request, user)
         return JsonResponse({"userName": user.username, "status": "Authenticated"}, status=201)
     except (KeyError, ValueError, TypeError):
