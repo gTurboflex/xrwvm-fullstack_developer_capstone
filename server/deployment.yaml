@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dealership
+  labels:
+    app: dealership
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dealership
+  template:
+    metadata:
+      labels:
+        app: dealership
+    spec:
+      containers:
+        - name: dealership
+          image: us.icr.io/REPLACE_WITH_LAB_NAMESPACE/dealership:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DJANGO_ALLOWED_HOSTS
+              value: 'dealership,localhost,127.0.0.1'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dealership
+spec:
+  selector:
+    app: dealership
+  ports:
+    - port: 8000
+      targetPort: 8000
+  type: ClusterIP
