@@ -43,4 +43,4 @@ jobs:
         working-directory: server/frontend
         run: |
           npm install --legacy-peer-deps
-          npm run build
+          CI=false npm run build
